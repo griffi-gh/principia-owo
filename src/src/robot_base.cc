@@ -684,8 +684,14 @@ robot_base::step()
 {
     creature::step();
 
-    float ga = this->get_gravity_angle();
-    this->balance->target = ga + M_PI/2.f;
+    //TODO level version check
+    b2Vec2 g = this->get_gravity();
+    if ((g.x != 0.) && (g.y != 0.)) {
+        float ga = this->get_gravity_angle();
+        this->balance->target = ga + M_PI/2.f;
+    } else {
+        this->lose_balance();
+    }
 
     /* always increase jump time so we can check time since last jump at any time */
     this->jump_time += G->timemul(WORLD_STEP);
