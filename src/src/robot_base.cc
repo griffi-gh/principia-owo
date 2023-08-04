@@ -685,11 +685,14 @@ robot_base::step()
     creature::step();
 
     //TODO level version check
+    //XXX: lose_balance or limit=0.??
     b2Vec2 g = this->get_gravity();
     if ((g.x != 0.) && (g.y != 0.)) {
         float ga = this->get_gravity_angle();
         this->balance->target = ga + M_PI/2.f;
+        //this->balance->limit = 100.;
     } else {
+        //this->balance->limit = 0.;
         this->lose_balance();
     }
 
